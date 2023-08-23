@@ -3,6 +3,7 @@
     "*.ejs": "html",
     "*.module": "php",
     "vector": "cpp",
-    "deque": "cpp"
+    "deque": "cpp",
+    "tuple": "cpp"
   }
 }
