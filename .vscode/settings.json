@@ -2,6 +2,7 @@
   "files.associations": {
     "*.ejs": "html",
     "*.module": "php",
-    "vector": "cpp"
+    "vector": "cpp",
+    "deque": "cpp"
   }
 }
