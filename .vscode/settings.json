@@ -4,6 +4,11 @@
     "*.module": "php",
     "vector": "cpp",
     "deque": "cpp",
-    "tuple": "cpp"
+    "tuple": "cpp",
+    "iostream": "cpp",
+    "__locale": "cpp",
+    "chrono": "cpp",
+    "complex": "cpp",
+    "valarray": "cpp"
   }
 }

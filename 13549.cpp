@@ -34,7 +34,6 @@
 
 using namespace std;
 
-// 3:10
 #define LIMIT 100001
 
 int n, k;
