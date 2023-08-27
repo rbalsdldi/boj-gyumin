@@ -85,7 +85,7 @@ int main()
   {
     int d, w;
     cin >> d >> w;
-    eggs.push_back(make_pair(d, w));
+    eggs.push_back({d, w});
   }
 
   backtrack(0, 0, eggs);
