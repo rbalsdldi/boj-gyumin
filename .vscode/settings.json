@@ -9,6 +9,8 @@
     "__locale": "cpp",
     "chrono": "cpp",
     "complex": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "iterator": "cpp",
+    "ostream": "cpp"
   }
 }
