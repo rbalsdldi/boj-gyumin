@@ -34,49 +34,46 @@
 
 using namespace std;
 
-int n, m;
+int n;
 
-vector<int> seq(2000);
+vector<int> seq(1000, INT_MAX);
+vector<int> ms;
 
-vector<vector<int>> memo(2000, vector<int>(2000, -1));
-
-int dp(int s, int e)
-{
-  if (memo[s][e] != -1)
-    return memo[s][e];
-  if (seq[s] != seq[e])
-  {
-    memo[s][e] = 0;
-  }
-  else
-  {
-    if (e - s > 1)
-    {
-      memo[s][e] = dp(s + 1, e - 1);
-    }
-    else
-    {
-      memo[s][e] = 1;
-    }
-  }
-  return memo[s][e];
-}
+int result = 0;
 
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.tie(NULL);
+
   cin >> n;
   for (int i = 0; i < n; i++)
   {
     cin >> seq[i];
   }
-  cin >> m;
-  for (int i = 0; i < m; i++)
+
+  for (int i = 0; i < n; i++)
   {
-    int s, e;
-    cin >> s >> e;
-    cout << dp(s - 1, e - 1) << endl;
+    for (int j = i; j < n; j++)
+    {
+      ms.push_back(seq[i] + seq[j]);
+    }
   }
+
+  sort(ms.begin(), ms.end());
+  sort(seq.begin(), seq.end());
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < i; j++)
+    {
+      if (binary_search(ms.begin(), ms.end(), seq[i] - seq[j]))
+      {
+        result = max(result, seq[i]);
+      }
+    }
+  }
+
+  cout << result << endl;
 }

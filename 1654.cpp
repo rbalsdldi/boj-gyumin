@@ -34,49 +34,43 @@
 
 using namespace std;
 
-int n, m;
+int n, k;
+vector<long long int> seq(10000, LONG_MAX);
 
-vector<int> seq(2000);
-
-vector<vector<int>> memo(2000, vector<int>(2000, -1));
-
-int dp(int s, int e)
-{
-  if (memo[s][e] != -1)
-    return memo[s][e];
-  if (seq[s] != seq[e])
-  {
-    memo[s][e] = 0;
-  }
-  else
-  {
-    if (e - s > 1)
-    {
-      memo[s][e] = dp(s + 1, e - 1);
-    }
-    else
-    {
-      memo[s][e] = 1;
-    }
-  }
-  return memo[s][e];
-}
+int result = 0;
 
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.tie(NULL);
-  cin >> n;
-  for (int i = 0; i < n; i++)
+
+  cin >> k >> n;
+  for (int i = 0; i < k; i++)
   {
     cin >> seq[i];
   }
-  cin >> m;
-  for (int i = 0; i < m; i++)
+
+  long long int st = 0;
+  long long int en = LONG_MAX;
+  long long int md;
+  long long int temp = 0;
+  while (st < en)
   {
-    int s, e;
-    cin >> s >> e;
-    cout << dp(s - 1, e - 1) << endl;
+    md = (st + en) / 2;
+    for (int i = 0; i < k; i++)
+    {
+      temp += seq[i] / md;
+    }
+    if (temp < n)
+    {
+      en = md;
+    }
+    else
+    {
+      st = md + 1;
+    }
+    temp = 0;
   }
+  cout << st - 1 << endl;
 }

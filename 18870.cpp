@@ -34,49 +34,38 @@
 
 using namespace std;
 
-int n, m;
+int n;
 
-vector<int> seq(2000);
-
-vector<vector<int>> memo(2000, vector<int>(2000, -1));
-
-int dp(int s, int e)
-{
-  if (memo[s][e] != -1)
-    return memo[s][e];
-  if (seq[s] != seq[e])
-  {
-    memo[s][e] = 0;
-  }
-  else
-  {
-    if (e - s > 1)
-    {
-      memo[s][e] = dp(s + 1, e - 1);
-    }
-    else
-    {
-      memo[s][e] = 1;
-    }
-  }
-  return memo[s][e];
-}
+vector<int> orig(1000001);
+vector<int> seq(1000001, INT_MAX);
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  cout.tie(NULL);
-  cin >> n;
+  scanf("%d", &n);
   for (int i = 0; i < n; i++)
   {
-    cin >> seq[i];
+    scanf("%d", &seq[i]);
+    orig[i] = seq[i];
   }
-  cin >> m;
-  for (int i = 0; i < m; i++)
+  sort(seq.begin(), seq.end());
+  auto itr = unique(seq.begin(), seq.end());
+  for (int i = 0; i < n; i++)
   {
-    int s, e;
-    cin >> s >> e;
-    cout << dp(s - 1, e - 1) << endl;
+    int st = 0;
+    int en = itr - seq.begin() - 1;
+    int md;
+    while (st < en)
+    {
+      md = (st + en) / 2;
+      if (seq[md] >= orig[i])
+      {
+        en = md;
+      }
+      else
+      {
+        st = md + 1;
+      }
+    }
+    printf("%d ", st);
   }
 }

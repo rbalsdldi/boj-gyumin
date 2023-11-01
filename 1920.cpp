@@ -36,47 +36,50 @@ using namespace std;
 
 int n, m;
 
-vector<int> seq(2000);
-
-vector<vector<int>> memo(2000, vector<int>(2000, -1));
-
-int dp(int s, int e)
-{
-  if (memo[s][e] != -1)
-    return memo[s][e];
-  if (seq[s] != seq[e])
-  {
-    memo[s][e] = 0;
-  }
-  else
-  {
-    if (e - s > 1)
-    {
-      memo[s][e] = dp(s + 1, e - 1);
-    }
-    else
-    {
-      memo[s][e] = 1;
-    }
-  }
-  return memo[s][e];
-}
+vector<int> ns(100000, INT_MAX);
+vector<int> ms(100000);
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  cout.tie(NULL);
-  cin >> n;
+  scanf("%d", &n);
   for (int i = 0; i < n; i++)
   {
-    cin >> seq[i];
+    scanf("%d", &ns[i]);
   }
-  cin >> m;
+  scanf("%d", &m);
   for (int i = 0; i < m; i++)
   {
-    int s, e;
-    cin >> s >> e;
-    cout << dp(s - 1, e - 1) << endl;
+    scanf("%d", &ms[i]);
+  }
+
+  sort(ns.begin(), ns.end());
+
+  for (int i = 0; i < m; i++)
+  {
+    int st = 0;
+    int en = n;
+    int md;
+    while (st < en)
+    {
+      md = (st + en) / 2;
+      if (ns[md] >= ms[i])
+      {
+        en = md;
+      }
+      else
+      {
+        st = md + 1;
+      }
+    }
+    md = (st + en) / 2;
+
+    if (en == n || ns[md] != ms[i])
+    {
+      printf("0\n");
+    }
+    else
+    {
+      printf("1\n");
+    }
   }
 }

@@ -36,51 +36,57 @@ using namespace std;
 
 int n, m;
 
-vector<string> board(1000);
-
-vector<vector<int>> memo(1000, vector<int>(1000, -1));
-
-int cnt = 0;
-
-int dp(int r, int c)
-{
-  if (memo[r][c] != -1)
-  {
-    return memo[r][c];
-  }
-  memo[r][c] = min({dp(r, c + 1), dp(r + 1, c), dp(r + 1, c + 1)}) + 1;
-  if (board[r][c] == '0')
-  {
-    memo[r][c] = 0;
-  }
-  cnt = max(cnt, memo[r][c]);
-  return memo[r][c];
-}
+vector<int> seq(500000, INT_MAX);
+vector<int> ms(500000);
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  cout.tie(NULL);
-  cin >> n >> m;
+  scanf("%d", &n);
   for (int i = 0; i < n; i++)
   {
-    cin >> board[i];
+    scanf("%d", &seq[i]);
   }
-
-  for (int i = 0; i < n; i++)
+  scanf("%d", &m);
+  for (int i = 0; i < m; i++)
   {
-    memo[i][m - 1] = board[i][m - 1] - '0';
-    cnt = max(cnt, memo[i][m - 1]);
+    scanf("%d", &ms[i]);
   }
+  sort(seq.begin(), seq.end());
 
   for (int i = 0; i < m; i++)
   {
-    memo[n - 1][i] = board[n - 1][i] - '0';
-    cnt = max(cnt, memo[n - 1][i]);
+    int st = 0;
+    int en = n;
+    int md;
+    int lower, upper;
+    while (st < en)
+    {
+      md = (st + en) / 2;
+      if (seq[md] >= ms[i])
+      {
+        en = md;
+      }
+      else
+      {
+        st = md + 1;
+      }
+    }
+    lower = st;
+    st = 0;
+    en = n;
+    while (st < en)
+    {
+      md = (st + en) / 2;
+      if (seq[md] > ms[i])
+      {
+        en = md;
+      }
+      else
+      {
+        st = md + 1;
+      }
+    }
+    upper = st;
+    printf("%d ", upper - lower);
   }
-
-  dp(0, 0);
-
-  cout << cnt * cnt << endl;
 }
